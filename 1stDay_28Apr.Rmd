@@ -1,0 +1,105 @@
+---
+title: "Introduction to Spectra object in R"
+author: "Mohieddin Jafari"
+date: "2024-11-18"
+output: html_document
+---
+## Resources
+Main reference for this workshop:
+https://rformassspectrometry.github.io/book/sec-msintro.html
+
+Bioconductor packages tagged by "proteomics":
+https://bioconductor.org/packages/release/BiocViews.html#___Proteomics
+
+```{r setup, include=TRUE, echo=TRUE, eval=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+## install.package("BiocManager")
+
+#library(BiocManager)
+
+# ## Bioconductor packages
+# if (!requireNamespace("BiocManager", quietly = TRUE))
+#     install.packages("BiocManager")
+# 
+# BiocManager::install("tidyverse")
+# BiocManager::install("factoextra")
+# BiocManager::install("msdata")
+# BiocManager::install("mzR")
+# BiocManager::install("rhdf5")
+# BiocManager::install("rpx")
+# BiocManager::install("MsCoreUtils")
+# BiocManager::install("QFeatures")
+# BiocManager::install("Spectra")
+# BiocManager::install("ProtGenerics")
+# BiocManager::install("PSMatch")
+# BiocManager::install("pheatmap")
+# BiocManager::install("limma")
+# BiocManager::install("MSnID")
+# BiocManager::install("RforMassSpectrometry/SpectraVis")
+
+#install.packages("tidyverse")
+```
+Download some data:
+```{r, warning=FALSE, message=FALSE}
+library(rpx)
+px <- PXDataset("PXD000001") ## answer yes if asked to create a cache directory
+fn <- "TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01-20141210.mzML"
+mzf <- pxget(px, fn)
+px <- PXDataset("PXD022816")
+pxget(px, grep("mzID", pxfiles(px))[1:3])
+pxget(px, grep("mzML", pxfiles(px))[1:3])
+```
+
+### Quiz 1
+Visit `gosocrative.com` and enter room name `jafari9471`
+
+## How does MS work
+The continuous workflow of separating-separating-separating!
+
+0. Liquid chromatography (not specific to MS, but it is often coupled to MS)
+Here, we focus on bottom-up proteomics rather than top-down, as it is more commonly used. Due to the high complexity of bottom-up proteomics, where we work with peptide mixtures rather than whole proteins, it requires coupling liquid chromatography (LC) to mass spectrometry (MS).
+
+Two dimensions: Retention time of column elution - Measurement of Intensity
+
+1. Source - ionise: MALDI or ESI
+2. Analyser - separate ions based m/z: TOF, Quadrupole, Ion trap, Orbitrap, Astral (Only Positively charged ions in proteomics-in metabolomics we have some time negative ions) --> MS1 spectrum with precursor or parent ion peaks
+- random fragmentation step for a selection of precursor ions in each time window: CID, HCD, ETD --> MS2 or MSn spectrum with fragment or product ion peaks
+
+3. Detector - measurements
+
+Three dimensions: Retention time of analyser elution - M/Z - Measurement of Intensity
+
+**Spectrum is the unit of mass spectrometry data**
+
+
+*TIC (total ion chromatogram) plot*: The intensities of all ions in each mass spectrometer scan (within a given time period) are summed and plotted as a function of time.
+*Base peak chromatogram plot*: The intensity of the base peak (the most intense ion in each mass spectrum) is plotted as a function of time. (Note: do not confuse the base peak with the baseline, which represents the constant signal from the background level of the instrument.)
+*XIC or EIC plot*: The intensity of a specific analyte at a chosen m/z value (either total or base peak intensity) is isolated and plotted as a function of time.
+![Alt text for the image](TIC_XIC.png)
+
+### Quiz 2
+Visit `gosocrative.com` and enter room name `jafari9471`
+
+## Getting data
+Get to know the ProteomeXchange Consortium: Established to create globally coordinated, standardized pipelines for data submission and dissemination across major proteomics repositories, the Consortium promotes open data policies in proteomics.
+
+`proteomexchange.org`
+
+```{r, message=FALSE}
+#Direct accessing data
+library("rpx")
+px <- PXDataset("PXD000001")
+#PXDataset("PXD000294")
+px
+
+pxtax(px) # taxonomic name
+pxref(px) # bibliography ref
+
+pxfiles(px) # file names of the object
+pxfiles(px, as.vector = TRUE) |> print()
+
+pxget(px, "erwinia_carotovora.fasta")
+pxget(px, "README.txt") # a vector defining the files to be downloaded
+
+f <- pxget(px, "TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01-20141210.mzML")
+```
