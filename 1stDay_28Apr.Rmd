@@ -1,5 +1,5 @@
 ---
-title: "Introduction to Spectra object in R"
+title: "Introduction to PXDataset2 object"
 author: "Mohieddin Jafari"
 date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
 output: html_document
@@ -90,7 +90,7 @@ ident()
 quant()
 ```
 ### Quiz 1 (GA_2)
-Visit `gosocrative.com` and enter room name `jafari9471`
+Visit `gosocrative.com` and enter room name `FIN2025`
 
 ## Raw MS data
 - We need to convert binary-vendor-specific formats to open formats such as mzML, mzXML.
