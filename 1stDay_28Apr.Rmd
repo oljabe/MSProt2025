@@ -89,7 +89,7 @@ proteomics()
 ident()
 quant()
 ```
-### Quiz 1 (GA_2)
+### Quiz 1 (GA_4)
 Visit `gosocrative.com` and enter room name `FIN2025`
 
 ## Raw MS data
