@@ -15,26 +15,26 @@ knitr::opts_chunk$set(echo = FALSE)
 #library(BiocManager)
 
 ## Bioconductor packages
-if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-
-BiocManager::install("tidyverse")
-BiocManager::install("factoextra")
-BiocManager::install("msdata")
-BiocManager::install("mzR")
-BiocManager::install("rhdf5")
-BiocManager::install("rpx")
-BiocManager::install("MsCoreUtils")
-BiocManager::install("QFeatures")
-BiocManager::install("Spectra")
-BiocManager::install("ProtGenerics")
-BiocManager::install("PSMatch")
-BiocManager::install("pheatmap")
-BiocManager::install("limma")
-BiocManager::install("MSnID")
-BiocManager::install("RforMassSpectrometry/SpectraVis")
-
-install.packages("tidyverse")
+# if (!requireNamespace("BiocManager", quietly = TRUE))
+#     install.packages("BiocManager")
+# 
+# BiocManager::install("tidyverse")
+# BiocManager::install("factoextra")
+# BiocManager::install("msdata")
+# BiocManager::install("mzR")
+# BiocManager::install("rhdf5")
+# BiocManager::install("rpx")
+# BiocManager::install("MsCoreUtils")
+# BiocManager::install("QFeatures")
+# BiocManager::install("Spectra")
+# BiocManager::install("ProtGenerics")
+# BiocManager::install("PSMatch")
+# BiocManager::install("pheatmap")
+# BiocManager::install("limma")
+# BiocManager::install("MSnID")
+# BiocManager::install("RforMassSpectrometry/SpectraVis")
+# 
+# install.packages("tidyverse")
 ```
 
 ## Review some points about MS data
@@ -89,7 +89,7 @@ proteomics()
 ident()
 quant()
 ```
-### Quiz 1
+### Quiz 1 (GA_2)
 Visit `gosocrative.com` and enter room name `jafari9471`
 
 ## Raw MS data
