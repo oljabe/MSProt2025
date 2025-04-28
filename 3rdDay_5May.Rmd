@@ -3,7 +3,6 @@ title: "Introduction to QFeatures object"
 author: "Mohieddin Jafari"
 date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
 output: html_document
-runtime: shiny
 ---
 
 ### Quiz 1 (IA_5)
@@ -26,7 +25,7 @@ library(mzR)
 library(PSMatch)
 library(pheatmap)
 library(QFeatures)
-library(sager)
+library(sageR)
 library(SummarizedExperiment)
 library(factoextra)
 ```

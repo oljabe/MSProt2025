@@ -3,13 +3,18 @@ title: "Introduction to Spectra object"
 author: "Mohieddin Jafari"
 date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
 output: html_document
-runtime: shiny
 ---
 ### Quiz 1 (IA_4)
 Visit `gosocrative.com` and enter room name `FIN2025`
 
 ## Library
 ```{r}
+# if (!requireNamespace("remotes", quietly = TRUE))
+#     install.packages("remotes")
+# 
+# remotes::install_github("RforMassSpectrometry/SpectraVis")
+
+
 library(rpx)
 library(msdata)
 library(rpx)

@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 #library(BiocManager)
 
-## Bioconductor packages
+# Bioconductor packages
 # if (!requireNamespace("BiocManager", quietly = TRUE))
 #     install.packages("BiocManager")
 # 
