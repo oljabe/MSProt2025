@@ -33,8 +33,8 @@ library(PSMatch)
 
 ## data.frame
 ## tibble
-spd <- DataFrame(msLevel = c(1L, 2L), #S4-based extension of data.frame from Bioconductor, designed for genomic and biological data with support for complex metadata and attributes.
-          rtime = c(1.1, 1.2))
+(spd <- DataFrame(msLevel = c(1L, 2L), #S4-based extension of data.frame from Bioconductor, designed for genomic and biological data with support for complex metadata and attributes.
+          rtime = c(1.1, 1.2)))
 
 spd$mz <- list(
   c(100, 103.2, 132, 210),
@@ -87,7 +87,7 @@ head(sp$msLevel, 300)
 
 msLevel(sp)[[1234]]
 plot(pd[[1234]], type = "h")
-grid()
+#grid()
 
 plot(pd[[1234]], type = "h", xlim = c(450, 500))
 plot(pd[[1234]], type = "l", xlim = c(450, 500))
@@ -240,16 +240,6 @@ plotlySpectra(sp2[31])
 browseSpectra(sp)
 ```
 
-```{r, include=FALSE, echo=FALSE, eval=FALSE}
-#BiocManager::install("MsBackendMgf")
-(fls <- dir(system.file("sciex", package = "msdata"), full.names = TRUE))
-
-basename(fls)
-sciex <- Spectra(fls)
-dataOrigin(sciex)
-table(dataOrigin(sciex))
-
-```
 
 ```{r, include=FALSE, echo=FALSE, eval=FALSE}
 ####################################################
