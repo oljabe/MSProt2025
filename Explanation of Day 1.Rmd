@@ -1,0 +1,105 @@
+library(mzR)
+ms <- openMSfile("C:/Users/oljabe/Documents/Courses/MS based proteomics course Helsinki/MSpROT2025/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01-20141210.mzML")
+header(ms)     # Checks metadata and first spectrum
+peaks(ms, 1)
+
+
+#Rewriting code chunk for downloaded dataset
+# Load required libraries
+library(mzR)      # for reading mzML files
+library(MSnID)    # for reading mzID files
+
+# === 1. Set file paths to your local copies ===
+
+# Replace with actual paths on your machine
+mzml_files <- c(
+  "C:/Users/oljabe/Documents/Courses/MS based proteomics course Helsinki/MSpROT2025/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01-20141210.mzML",
+  "C:/Users/oljabe/Documents/Courses/MS based proteomics course Helsinki/MSpROT2025/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01-20141210.mzML",
+  "C:/Users/oljabe/Documents/Courses/MS based proteomics course Helsinki/MSpROT2025/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01-20141210.mzML"
+)
+
+mzid_files <- c(
+  "C:/Users/oljabe/Documents/Courses/MS based proteomics course Helsinki/MSpROT2025/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01-20141210.mzML",
+  "C:/Users/oljabe/Documents/Courses/MS based proteomics course Helsinki/MSpROT2025/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01-20141210.mzML",
+  "C:/Users/oljabe/Documents/Courses/MS based proteomics course Helsinki/MSpROT2025/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01-20141210.mzML"
+)
+
+fasta_file <- "C:/path/to/erwinia_carotovora.fasta"
+readme_file <- "C:/path/to/README.txt"
+
+# === 2. Open one mzML file to inspect raw MS data ===
+ms <- openMSfile(mzml_files[1])
+header(ms)           # metadata for all spectra
+peaks(ms, 1)         # first spectrum's m/z + intensity
+
+# === 3. Read mzID identification file ===
+msnid <- read_mzIDs(mzid_files[1])
+msnid                     # summary
+show(msnid)              # print in readable format
+psms(msnid)              # show peptide-spectrum matches
+
+# === 4. Read FASTA file (optional for searching) ===
+fasta_seqs <- readLines(fasta_file)[1:10]  # preview first 10 lines
+
+# === 5. Read README or project description ===
+readme_txt <- readLines(readme_file)
+cat(paste(readme_txt[1:20], collapse = "\n"))  # show first 20 lines
+
+# === 6. Manually define metadata ===
+# These would typically be returned by rpx functions
+pxtax_local <- "Erwinia carotovora"       # taxonomic name (manual)
+pxref_local <- "Ison et al., JPR 2015"    # publication reference (manual)
+
+# === 7. List downloaded files ===
+list.files("C:/path/to/your/local/folder", full.names = TRUE)
+
+# === 8. Optional: Get just file name from full path ===
+basename(mzml_files[1])   # gets just the filename
+
+
+
+#Direct accessing data - this 
+library("rpx")  #this package accesses the PRIDE dataset directly
+px <- PXDataset("PXD022816")  #has 11 files in it
+pxget(px, grep("mzID", pxfiles(px))[1:3])    #This line uses the rpx package to download files from a ProteomeXchange (PX) dataset, specifically the first 3 files that contain "mzID" in their names.
+pxget(px, grep("mzML", pxfiles(px))[1:3])
+
+px1 <- PXDataset("PXD000001")  # this is a smaller dataset was two files 
+#px contains some number of files, Use 'pxfiles(.)' to see all files in the px.
+pxfiles(px, as.vector = TRUE) |> print()
+px #going forward we use the px of PXDataset 022816, this is the actual dataset for this experiment, the PXD00001 was just a test of a smaller dataset
+fn <- "TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01-20141210.mzML"   #we will eventually extract this file which is one of the 11 files from the "px" the 1st one. In my case, I have downloaded the mzML file that I will use. But to practice with this small dataset 000001, I will assume this mgf.gz file below is the mzML file
+fn1 <- "PRIDE_Exp_Complete_Ac_22134.pride.mgf.gz"
+mzf <- pxget(px, fn)
+mzf <- pxget(px1, fn1)
+
+pxtax(px1) # taxonomic name
+pxref(px1) # bibliography ref
+
+pxfiles(px1) # file names of the object
+pxfiles(px1, as.vector = TRUE) |> print()
+
+pxget(px, "erwinia_carotovora.fasta")  #This is supposed to extract the file number 11 from px
+#in my case, since I can only access px1, I will extract one of the two files 
+pxget(px1, "PRIDE_Exp_Complete_Ac_22134.pride.mztab.gz")
+pxget(px, "README.txt") # a vector defining the files to be downloaded
+# Some files are accessible remotly and some of them from local cashing mechanism.
+(f <- pxget(px, "TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01-20141210.mzML"))
+basename(f)
+
+
+
+
+#You've replaced:
+
+px <- PXDataset("PXD022816")
+pxget(px, grep("mzID", pxfiles(px))[1:3])
+#with:
+mzid_files <- c("local/path1.mzid", "local/path2.mzid", ...)
+read_mzIDs(mzid_files[1])
+
+#and:
+pxget(px, grep("mzML", pxfiles(px))[1:3])
+#with:
+mzml_files <- c("local/path1.mzML.gz", "local/path2.mzML.gz", ...)
+openMSfile(mzml_files[1])
